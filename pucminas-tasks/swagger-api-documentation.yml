@@ -1,0 +1,139 @@
+swagger: '2.0'
+info:
+  title: Api to manager Tasks
+  version: 1.0.0
+host: pucminas-tasks.azurewebsites.net
+basePath: /
+tags:
+  - name: task
+    description: Everything about your Tasks
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+schemes:
+  - https
+paths:
+  /api/task/findByName:
+    get:
+      tags:
+        - task
+      operationId: findByName
+      summary: Finds Tasks by Name
+      description: The task name must be the same as the searched name
+      produces:
+        - application/json
+      parameters:
+        - name: nome
+          in: query
+          description: Name of the task to be considered in the query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Success operation
+          schema:
+            $ref: '#/definitions/Task'
+      security:
+        - apikeyQuery: []
+  '/api/task/{id}':
+    delete:
+      tags:
+        - task
+      summary: Delete a task
+      description: ''
+      operationId: '/api/task/{id}/delete'
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Success operation
+        '404':
+          description: Task not found
+      security:
+        - apikeyQuery: []
+  /api/task:
+    put:
+      tags:
+        - task
+      summary: Update task
+      description: ''
+      operationId: /api/task/put
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Updated task object
+          required: true
+          schema:
+            $ref: '#/definitions/Task'
+      responses:
+        '200':
+          description: Success operation
+        '400':
+          description: Invalid task supplied
+      security:
+        - apikeyQuery: []
+    post:
+      tags:
+        - task
+      summary: Add a new Task to database
+      description: ''
+      operationId: /api/task/post
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Task object that needs to be added do the database
+          required: true
+          schema:
+            $ref: '#/definitions/Task'
+      responses:
+        '200':
+          description: Success operation
+        '400':
+          description: Invalid task supplied
+      security:
+        - apikeyQuery: []
+definitions:
+  Task:
+    type: object
+    properties:
+      nome:
+        type: string
+      descricao:
+        type: string
+      prioridade:
+        type: string
+        description: Task Priority
+        enum:
+          - Alta
+          - Media
+          - Baixa
+      esforco:
+        type: integer
+        description: Task effort
+        format: int32
+        enum:
+          - '1'
+          - '2'
+          - '4'
+          - '8'
+      categoria:
+        type: string
+      data_alvo:
+        type: string
+        format: date
+securityDefinitions:
+  apikeyQuery:
+    type: apiKey
+    name: code
+    in: query

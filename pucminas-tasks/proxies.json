@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json.schemastore.org/proxies",
+    "proxies": {
+        "ProxyUpdateTask": {
+            "matchCondition": {
+                "route": "api/task",
+                "methods": [
+                    "PUT"
+                ]
+            },
+            "backendUri": "https://pucminas-tasks.azurewebsites.net/api/UpdateTask"
+        },
+        "ProxyFindTask": {
+            "matchCondition": {
+                "route": "api/task/{id}",
+                "methods": [
+                    "GET"
+                ]
+            },
+            "backendUri": "https://pucminas-tasks.azurewebsites.net/api/{id}"
+        },
+        "ProxyCreateTask": {
+            "matchCondition": {
+                "route": "api/task",
+                "methods": [
+                    "POST"
+                ]
+            },
+            "backendUri": "https://pucminas-tasks.azurewebsites.net/api/CreateTask"
+        },
+        "ProxyDeleteTask": {
+            "matchCondition": {
+                "route": "api/task/{id}",
+                "methods": [
+                    "DELETE"
+                ]
+            },
+            "backendUri": "https://pucminas-tasks.azurewebsites.net/api/{id}"
+        }
+    }
+}

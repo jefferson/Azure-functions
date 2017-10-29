@@ -1,0 +1,29 @@
+{
+  "bindings": [
+    {
+      "authLevel": "function",
+      "name": "req",
+      "type": "httpTrigger",
+      "direction": "in",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "name": "res",
+      "type": "http",
+      "direction": "out"
+    },
+    {
+      "type": "table",
+      "name": "outTable",
+      "tableName": "task",
+      "take": 50,
+      "connection": "AzureWebJobsDashboard",
+      "direction": "out",
+      "rowKey": "nome",
+      "partitionKey": "nome"
+    }
+  ],
+  "disabled": false
+}
